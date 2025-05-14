@@ -1,0 +1,13 @@
+{
+  "enabledCssSnippets": [
+    "Just Alignment",
+    "Justification CSS",
+    "Text_Justification",
+    "Table_Center",
+    "MCL Wide Views",
+    "Image_Alignment"
+  ],
+  "cssTheme": "Border",
+  "theme": "obsidian",
+  "baseFontSize": 16
+}

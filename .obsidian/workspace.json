@@ -1,0 +1,223 @@
+{
+  "main": {
+    "id": "4d15840742d0ef5b",
+    "type": "split",
+    "children": [
+      {
+        "id": "2649dd59042ef53d",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "d33747f9c818e275",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "FML Integration/FML Integration.md",
+                "mode": "preview",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "FML Integration"
+            }
+          },
+          {
+            "id": "9870b0b5e954b352",
+            "type": "leaf",
+            "state": {
+              "type": "empty",
+              "state": {},
+              "icon": "lucide-file",
+              "title": "新标签页"
+            }
+          }
+        ],
+        "currentTab": 1
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "33cd24b6c798513c",
+    "type": "split",
+    "children": [
+      {
+        "id": "cc903381891b7c7f",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "5dcdbf720dccf992",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "文件列表"
+            }
+          },
+          {
+            "id": "8ec5450186564e5f",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Search"
+            }
+          },
+          {
+            "id": "19c4988fad0d7a9c",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "Bookmarks"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "02330bb86cce3270",
+    "type": "split",
+    "children": [
+      {
+        "id": "bd22ea0203ce5f6e",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "f525a80d0ac54a0e",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "FML Integration/FML Integration.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Backlinks for FML Integration"
+            }
+          },
+          {
+            "id": "969dde5086f5ca6b",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "FML Integration/FML Integration.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Outgoing links from FML Integration"
+            }
+          },
+          {
+            "id": "c5f845666ebace3d",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "Tags"
+            }
+          },
+          {
+            "id": "f0d470c734b49f03",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "FML Integration/FML Integration.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Outline of FML Integration"
+            }
+          },
+          {
+            "id": "5cd3607b34842c14",
+            "type": "leaf",
+            "state": {
+              "type": "calendar",
+              "state": {},
+              "icon": "lucide-file",
+              "title": "插件不再活动"
+            }
+          },
+          {
+            "id": "89f16245402c1c51",
+            "type": "leaf",
+            "state": {
+              "type": "git-view",
+              "state": {},
+              "icon": "git-pull-request",
+              "title": "Source Control"
+            }
+          }
+        ],
+        "currentTab": 5
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:打开快速切换": false,
+      "graph:查看关系图谱": false,
+      "canvas:新建白板": false,
+      "daily-notes:打开/创建今天的日记": false,
+      "templates:插入模板": false,
+      "command-palette:打开命令面板": false,
+      "workspaces:管理工作区布局": false,
+      "table-editor-obsidian:Advanced Tables Toolbar": false,
+      "obsidian-git:Open Git source control": false,
+      "obsidian42-brat:BRAT": false
+    }
+  },
+  "active": "9870b0b5e954b352",
+  "lastOpenFiles": [
+    "Scim Design/V2/Notice.md",
+    "Scim Design/V2/RFC Doc.md",
+    "Scim Design/V2/Expansion.md",
+    "Scim Design/V2/Azure Workflow.md",
+    "Scim Design/V1/WorkFlow.md",
+    "Scim Design/_Asset",
+    "Scim Design/V1",
+    "Scim Design/V2",
+    "Scim Design/V1/Table Schema.md",
+    "Scim Design/V1/Details.md",
+    "Scim Design/V1/Scim Specs.md",
+    "FML Integration/FML Integration.md",
+    "Scim Design",
+    "README.md"
+  ]
+}

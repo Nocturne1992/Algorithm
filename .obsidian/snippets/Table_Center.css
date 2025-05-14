@@ -1,0 +1,11 @@
+/* Center tables on the page */
+.markdown-preview-view table {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.markdown-preview-view table th,
+.markdown-preview-view table td {
+    text-align: center;
+    vertical-align: middle; /* 可选：垂直居中 */
+}

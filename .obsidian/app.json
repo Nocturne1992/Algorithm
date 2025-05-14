@@ -1,0 +1,13 @@
+{
+  "attachmentFolderPath": "./_Asset",
+  "trashOption": "local",
+  "newFileLocation": "folder",
+  "newFileFolderPath": "FML Integration",
+  "readableLineLength": true,
+  "pdfExportSettings": {
+    "pageSize": "Letter",
+    "landscape": false,
+    "margin": "0",
+    "downscalePercent": 100
+  }
+}
