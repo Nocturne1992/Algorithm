@@ -13,26 +13,29 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "FML Integration/FML Integration.md",
-                "mode": "preview",
+                "file": "Algo Fantasy.md",
+                "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "FML Integration"
+              "title": "Algo Fantasy"
             }
           },
           {
             "id": "9870b0b5e954b352",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
+              "type": "markdown",
+              "state": {
+                "file": "Algo Fantasy.md",
+                "mode": "source",
+                "source": false
+              },
               "icon": "lucide-file",
-              "title": "新标签页"
+              "title": "Algo Fantasy"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -203,8 +206,10 @@
       "obsidian42-brat:BRAT": false
     }
   },
-  "active": "9870b0b5e954b352",
+  "active": "d33747f9c818e275",
   "lastOpenFiles": [
+    "README.md",
+    "Algo Fantasy.md",
     "Scim Design/V2/Notice.md",
     "Scim Design/V2/RFC Doc.md",
     "Scim Design/V2/Expansion.md",
@@ -217,7 +222,6 @@
     "Scim Design/V1/Details.md",
     "Scim Design/V1/Scim Specs.md",
     "FML Integration/FML Integration.md",
-    "Scim Design",
-    "README.md"
+    "Scim Design"
   ]
 }
