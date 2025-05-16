@@ -35,7 +35,8 @@
               "title": "Algo Fantasy"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -206,7 +207,7 @@
       "obsidian42-brat:BRAT": false
     }
   },
-  "active": "d33747f9c818e275",
+  "active": "9870b0b5e954b352",
   "lastOpenFiles": [
     "README.md",
     "Algo Fantasy.md",
