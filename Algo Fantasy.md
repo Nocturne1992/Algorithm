@@ -197,5 +197,50 @@ class Solution {
 
 - Quick Sort
 ```java
+class Solution {
+    Random rand;
+    public int[] sortArray(int[] nums) {
+        rand = new Random();
+        quickSort(nums, 0, nums.length - 1);
+        return nums;
+    }
+
+    public void quickSort(int[] nums, int left, int right) {
+        if (left >= right) {
+            return;
+        }
+
+        int pvt = left + rand.nextInt(right - left + 1);
+        swap(nums, pvt, right);
+        int i = left;
+        int j = left;
+        int k = right - 1;
+
+        while (j <= k) {
+            if (nums[j] < nums[right]) {
+                swap(nums, i++, j++);
+            } else if (nums[j] == nums[right]) {
+                j++;
+            } else {
+                swap(nums, j, k--);
+            }
+        }
+
+        swap(nums, j, right);
+        quickSort(nums, left, i - 1);
+        quickSort(nums, j + 1, right); 
+    }
+
+    public void swap(int[] nums, int i, int j) {
+        int tmp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = tmp;
+    }
+}
+```
+
+### 3 Sum
+```java
+// 任意解都能被这种方法覆盖 所以不会漏解
 
 ```
