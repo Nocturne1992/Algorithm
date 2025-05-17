@@ -119,3 +119,83 @@ class Solution {
 ```java
 
 ```
+
+### 3. Sort Method
+- Rainbow Sort
+```java
+class Solution {
+    public void sortColors(int[] nums) {
+        int i = 0;
+        int j = 0;
+        int k = nums.length - 1;
+
+        while (j <= k) {
+            if (nums[j] == 0) {
+                swap(nums, i++, j++);
+            } else if (nums[j] == 1) {
+                j++;
+            } else {
+                swap(nums, j, k--);
+            }
+        }
+    }
+
+    public void swap(int[] nums, int i, int j) {
+        int tmp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = tmp;
+    }
+}
+```
+
+- Merge Sort
+```java
+class Solution {
+    int[] tmp;
+
+    public int[] sortArray(int[] nums) {
+        tmp = new int[nums.length];
+        mergeSort(nums, 0, nums.length - 1);
+        return nums;
+    }
+
+    public void mergeSort(int[] nums, int left, int right) {
+        if (left == right) {
+            return;
+        }
+
+        int mid = left + (right - left) / 2;
+        mergeSort(nums, left, mid);
+        mergeSort(nums, mid + 1, right);
+
+        merge(nums, left, mid, right);
+    }
+
+    public void merge(int[] nums, int left, int mid, int right) {
+        for (int i=left; i<=right; i++) {
+            tmp[i] = nums[i];
+        }
+
+        int i = left;
+        int j = mid + 1;
+        int k = left;
+
+        while (i <= mid && j <= right) {
+            if (tmp[i] <= tmp[j]) {
+                nums[k++] = tmp[i++];
+            } else {
+                nums[k++] = tmp[j++];
+            }
+        }
+
+        while (i <= mid) {
+            nums[k++] = tmp[i++];
+        }
+    }
+}
+```
+
+- Quick Sort
+```java
+
+```
