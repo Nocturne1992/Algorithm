@@ -242,5 +242,50 @@ class Solution {
 ### 3 Sum
 ```java
 // 任意解都能被这种方法覆盖 所以不会漏解
+class Solution {
+    public List<List<Integer>> threeSum(int[] nums) {
+        List<List<Integer>> rst= new ArrayList<>();
 
+        Arrays.sort(nums);
+        for (int i=0; i<nums.length; i++) {
+            List<List<Integer>> lists = twoSum(nums, i + 1, -nums[i]);
+
+            for (List<Integer> list : lists) {
+                list.add(nums[i]);
+                rst.add(list);
+            }
+
+            while (i + 1 < nums.length && nums[i] == nums[i + 1]) {
+                i++;
+            }
+        }
+
+        return rst;
+    }
+
+    public List<List<Integer>> twoSum(int[] nums, int idx, int target) {
+        List<List<Integer>> list = new ArrayList<>();
+        int left = idx;
+        int right = nums.length - 1;
+
+        while (left < right) {
+            int total = nums[left] + nums[right];
+
+            if (total > target) {
+                right--;
+            } else if (total < target) {
+                left++;
+            } else {
+                list.add(new ArrayList(Arrays.asList(nums[left], nums[right])));
+
+                int val = nums[left];
+                while(left < right && nums[left] == val) {
+                    left++;
+                }
+            }
+        }
+
+        return list;
+    }
+}
 ```
