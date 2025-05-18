@@ -19,6 +19,7 @@ class Solution {
     }
 }
 ```
+
 - 左右边界包含了可能的答案
 ```python
 class Solution {
@@ -87,6 +88,7 @@ class NumArray {
     }
 }
 ```
+
 - 前缀后缀和
 ```java
 class Solution {
@@ -115,6 +117,7 @@ class Solution {
     }
 }
 ```
+
 - 查看以当前位置为结尾的子数组和的性质
 ```java
 class Solution {
@@ -259,7 +262,7 @@ class Solution {
 }
 ```
 
-### 3 Sum
+### 4. 3Sum
 ```java
 // 任意解都能被这种方法覆盖 所以不会漏解
 class Solution {
@@ -308,4 +311,9 @@ class Solution {
         return list;
     }
 }
+```
+
+### 5. Sliding Window
+```java
+
 ```
