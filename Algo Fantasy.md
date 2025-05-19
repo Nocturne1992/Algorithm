@@ -314,6 +314,8 @@ class Solution {
 ```
 
 ### 5. Sliding Window
+- 不定长滑动窗口
 ```java
+//前提是问题性质会随着窗口边界单调变化
 
 ```
