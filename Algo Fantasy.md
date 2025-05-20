@@ -319,3 +319,44 @@ class Solution {
 //前提是问题性质会随着窗口边界单调变化
 
 ```
+
+### 6. Cutting Rope / String
+```java
+//截取从idx开始最长为k: for (int i=idx; i<idx + k; i++) -> s.substring(idx, i + 1)
+class Solution {
+    List<String> rst = new ArrayList<>();
+    List<String> list = new ArrayList<>();
+
+    public List<String> restoreIpAddresses(String s) {
+        dfs(s, 0);
+        return rst;
+    }
+
+    public void dfs(String s, int idx) {
+        if (idx == s.length() && list.size() == 4) {
+            rst.add(String.join(".", list));
+            return;
+        }
+
+        if (idx == s.length() || list.size() == 4) {
+            return;
+        }
+
+        if (s.charAt(idx) == '0') {
+            list.add("0");
+            dfs(s, idx + 1);
+            list.remove(list.size() - 1);
+        } else {
+            for (int i=idx; i<Math.min(idx + 3, s.length()); i++) {
+                String str = s.substring(idx, i + 1);
+                int t = Integer.parseInt(str);
+                if (t <= 255) {
+                    list.add(str);
+                    dfs(s, i + 1);
+                    list.remove(list.size() - 1);
+                }
+            }
+        }
+    }
+}
+```
