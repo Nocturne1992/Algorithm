@@ -430,3 +430,51 @@ class Solution {
     }
 }
 ```
+
+### 7. Palidrome
+- 中心开花
+```java
+class Solution {
+    public int countSubstrings(String s) {
+        int num = 0;
+        for (int i=0; i<s.length(); i++) {
+            num += find(s, i, i);
+            num += find(s, i , i + 1);
+        }
+
+        return num;
+    }
+
+    public int find(String s, int left, int right) {
+        int num = 0;
+
+        while (left >= 0 && right < s.length() && s.charAt(left) == s.charAt(right)) {
+            num++;
+            left--;
+            right++;
+        }
+
+        return num;
+    }
+}
+```
+
+- 双指针
+```java
+class Solution {
+    public boolean isPalindrome(String s) {
+        int left = 0;
+        int right = s.length() - 1;
+
+        while (left < right) {
+            if (s.charAt(left) != s.charAt(right)) {
+                return false;
+            }
+            left++;
+            right--;
+        }
+
+        return true;
+    }
+}
+```
