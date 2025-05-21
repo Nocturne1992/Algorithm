@@ -317,9 +317,37 @@ class Solution {
 - 不定长滑动窗口
 ```java
 //前提是问题性质会随着窗口边界单调变化
+class Solution {
+    public int lengthOfLongestSubstring(String s) {
+        int left = 0;
+        int right = 0;
+        int max = 0;
+        Map<Character, Integer> map = new HashMap<>();
 
+        while (right < s.length()) {
+            char rc = s.charAt(right);
+            map.put(rc, map.getOrDefault(rc, 0) + 1);
+
+            while (map.get(rc) > 1) {
+                char lc = s.charAt(left);
+                map.put(lc, map.get(lc) - 1);
+                left++;
+            }
+
+            max = Math.max(max, right - left + 1);
+            right++;
+            
+        }
+
+        return max;
+    }
+}
 ```
 
+- 定长滑动窗口
+```java
+
+```
 ### 6. Cutting Rope / String
 ```java
 //截取从idx开始最长为k: for (int i=idx; i<idx + k; i++) -> s.substring(idx, i + 1)
