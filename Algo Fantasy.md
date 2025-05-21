@@ -431,7 +431,7 @@ class Solution {
 }
 ```
 
-### 7. Palidrome
+### 7. Palindrome
 - 中心开花
 ```java
 class Solution {
