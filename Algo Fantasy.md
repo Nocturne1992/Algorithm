@@ -317,6 +317,7 @@ class Solution {
 - 不定长滑动窗口
 ```java
 //前提是问题性质会随着窗口边界单调变化
+//在最外层循环[left, right)不满足有重复字符条件
 class Solution {
     public int lengthOfLongestSubstring(String s) {
         int left = 0;
@@ -346,7 +347,48 @@ class Solution {
 
 - 定长滑动窗口
 ```java
+class Solution {
+    public boolean checkInclusion(String s1, String s2) {
+        Map<Character, Integer> smap = new HashMap<>();
+        Map<Character, Integer> rmap = new HashMap<>();
 
+        for (int i=0; i<s1.length(); i++) {
+            char c = s1.charAt(i);
+            rmap.put(c, rmap.getOrDefault(c, 0) + 1);
+        }
+
+        int left = 0;
+        int right = 0;
+        int match = 0;
+
+        while (right < s2.length()) {
+            char rc = s2.charAt(right);
+
+            smap.put(rc, smap.getOrDefault(rc, 0) + 1);
+
+            if (rmap.containsKey(rc) && rmap.get(rc) == smap.get(rc) + 0) {
+                match++;
+            } 
+
+            while (right - left + 1 > s1.length()) {
+                char lc = s2.charAt(left);
+                if (rmap.containsKey(lc) && rmap.get(lc) == smap.get(lc) + 0) {
+                    match--;
+                }
+                smap.put(lc, smap.get(lc) - 1);
+                left++;         
+            }
+
+            if (match == rmap.size()) {
+                return true;
+            }
+
+            right++;
+        }
+
+        return false;
+    }
+}
 ```
 ### 6. Cutting Rope / String
 ```java
