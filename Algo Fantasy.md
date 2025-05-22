@@ -478,3 +478,74 @@ class Solution {
     }
 }
 ```
+
+### 8. Monotonic Stack / Queue
+-  Monotonic Stack
+```java
+class Solution {
+    public int largestRectangleArea(int[] heights) {
+        Deque<Integer> stk = new ArrayDeque<>();
+        int max = 0;
+
+        for (int i=0; i<heights.length; i++) {
+            while (!stk.isEmpty() && heights[stk.peekLast()] > heights[i]) {
+                int h = heights[stk.pollLast()];
+                int right = i - 1;
+                int left = stk.isEmpty()? 0 : stk.peekLast() + 1;
+
+                max = Math.max(max, h * (right - left + 1));
+
+            } 
+
+            stk.offerLast(i);
+        }
+
+        while (!stk.isEmpty()) {
+            int h = heights[stk.pollLast()];
+            int right = heights.length - 1;
+            int left = stk.isEmpty()? 0 : stk.peekLast() + 1;
+
+            max = Math.max(max, h * (right - left + 1));
+        }
+
+        return max;
+    }
+}
+```
+
+- Monotonic Queue
+```java
+class Solution {
+    public int[] maxSlidingWindow(int[] nums, int k) {
+        Deque<Integer> dq = new ArrayDeque<>();
+
+        int left = 0;
+        int right = 0;
+        int t = 0;
+
+       int[] rst = new int[nums.length - k + 1];
+
+        while (right < nums.length) {
+            while (!dq.isEmpty() && nums[dq.peekLast()] < nums[right]){
+                dq.pollLast();
+            } 
+            dq.offerLast(right);
+
+            while (right - left + 1 > k) {
+                if (left == dq.peekFirst()) {
+                    dq.pollFirst();
+                }
+                left++;
+            }
+
+            if (right - left + 1 == k) {
+                rst[t++] = nums[dq.peekFirst()];
+            }
+
+            right++;
+        }
+
+        return rst;
+    }
+}
+```
