@@ -549,3 +549,46 @@ class Solution {
     }
 }
 ```
+
+```java
+class Solution {
+    public int longestSubarray(int[] nums, int limit) {
+        Deque<Integer> maxq = new ArrayDeque<>();
+        Deque<Integer> minq = new ArrayDeque<>();
+
+        int left = 0;
+        int right = 0;
+
+        int max = 0;
+
+        while (right < nums.length) {
+            while (!maxq.isEmpty() && maxq.peekLast() < nums[right]) {
+                maxq.pollLast();
+            }
+            maxq.offerLast(nums[right]);
+
+            while (!minq.isEmpty() && minq.peekLast() > nums[right]) {
+                minq.pollLast();
+            }
+            minq.offerLast(nums[right]);
+
+            while (maxq.peekFirst() - minq.peekFirst() > limit) {
+                if (nums[left] == maxq.peekFirst() + 0) {
+                    maxq.pollFirst();
+                }
+
+                if (nums[left] == minq.peekFirst() + 0) {
+                    minq.pollFirst();
+                }
+
+                left++;
+            }
+
+            max = Math.max(right - left + 1, max);
+            right++;
+        }
+
+        return max;
+    }
+}
+```
