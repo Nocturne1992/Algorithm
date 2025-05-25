@@ -593,7 +593,7 @@ class Solution {
 }
 ```
 
-### Union Find
+### 9. Union Find
 ```java
 //Every edge means the connectivity between two nodes, and in union find this connectivity is represented by two nodes share the same root node
 class Solution {
@@ -643,6 +643,56 @@ class UF{
 
     public boolean isConnected(int p, int q) {
         return find(p) == find(q);
+    }
+}
+```
+
+### 10. Binary Tree
+- All iteration + return value
+```java
+// dfs(subnode)本身代表了访问之后没有访问过的所有点，所以返回值也带有之后整体的意思；然后用返回值考虑以当前节点为根子树的性质是否满足
+class Solution {
+    boolean is_balanced = true;
+
+    public boolean isBalanced(TreeNode root) {
+        dfs(root);
+        return is_balanced;
+    }
+
+    public int dfs(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+
+        int left = dfs(root.left);
+        int right = dfs(root.right);
+
+        if (Math.abs(left - right) > 1) {
+            is_balanced = false;
+        }
+
+        return Math.max(left, right) + 1;
+    }
+}
+
+class Solution {
+    public boolean isBalanced(TreeNode root) {
+        return dfs(root) == -1? false : true;
+    }
+
+    public int dfs(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+
+        int left = dfs(root.left);
+        int right = dfs(root.right);
+
+        if (left == -1 || right == -1 || Math.abs(left - right) > 1) {
+            return -1;
+        }
+
+        return Math.max(left, right) + 1;
     }
 }
 ```
