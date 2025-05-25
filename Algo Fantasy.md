@@ -592,3 +592,57 @@ class Solution {
     }
 }
 ```
+
+### Union Find
+```java
+//Every edge means the connectivity between two nodes, and in union find this connectivity is represented by two nodes share the same root node
+class Solution {
+    public int countComponents(int n, int[][] edges) {
+        UF uf = new UF(n);
+
+        for (int[] edge : edges) {
+            uf.connect(edge[0], edge[1]);
+        }
+
+        return uf.cnt;
+    }
+}
+
+class UF{
+    int[] pnt;
+    int cnt;
+
+    public UF(int n) {
+        cnt = n;
+        pnt = new int[n];
+
+        for (int i=0; i<pnt.length; i++) {
+            pnt[i] = i;
+        }
+    }
+
+    public int find(int x) {
+        if (x != pnt[x]) {
+            pnt[x] = find(pnt[x]);
+        }
+
+        return pnt[x];
+    }
+
+    public void connect(int p, int q) {
+        int proot = find(p);
+        int qroot = find(q);
+
+        if (proot == qroot) {
+            return;
+        }
+
+        pnt[proot] = qroot;
+        cnt--;
+    }
+
+    public boolean isConnected(int p, int q) {
+        return find(p) == find(q);
+    }
+}
+```
