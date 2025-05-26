@@ -696,3 +696,92 @@ class Solution {
     }
 }
 ```
+
+### 11. Graph
+| 图类型 | 环检测方法 | 原因                   |
+| --- | ----- | -------------------- |
+| 有向图 | 三色标记  | 需要区分"在当前路径上"vs"已探索完" |
+| 无向图 | 父节点检查 | 只要回到访问过的非父节点就是环      |
+- 有向图判环
+```java
+class DirectedGraphCycleDetection {
+    Map<Integer, Integer> gp = new HashMap<>();  // 状态：1=灰色，2=黑色
+    Map<Integer, List<Integer>> out = new HashMap<>();
+    
+    public boolean hasCycle(int numNodes, int[][] edges) {
+        // 构建邻接表（单向）
+        for (int[] edge : edges) {
+            out.putIfAbsent(edge[0], new ArrayList<>());
+            out.get(edge[0]).add(edge[1]);
+        }
+
+        // 对每个未访问节点进行DFS
+        for (int i = 0; i < numNodes; i++) {
+            if (!gp.containsKey(i) && dfs(i)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean dfs(int node) {
+        gp.put(node, 1);  // 标记为灰色（正在访问）
+
+        for (int nei : out.getOrDefault(node, new ArrayList<>())) {
+            if (!gp.containsKey(nei)) {
+                if (dfs(nei)) {
+                    return true;
+                }
+            } else if (gp.get(nei) == 1) {  // 遇到灰色节点=有环
+                return true;
+            }
+        }
+        
+        gp.put(node, 2);  // 标记为黑色（访问完成）
+        return false;
+    }
+}
+```
+
+- 无向图判环
+```java
+class UndirectedGraphCycleDetection {
+    Map<Integer, Boolean> visited = new HashMap<>();  // 只需要记录是否访问
+    Map<Integer, List<Integer>> adj = new HashMap<>();  // adj比out更符合无向图
+    
+    public boolean hasCycle(int numNodes, int[][] edges) {
+        // 构建邻接表（双向！）
+        for (int[] edge : edges) {
+            adj.putIfAbsent(edge[0], new ArrayList<>());
+            adj.putIfAbsent(edge[1], new ArrayList<>());
+            adj.get(edge[0]).add(edge[1]);
+            adj.get(edge[1]).add(edge[0]);  // 关键区别：双向边
+        }
+
+        // 对每个未访问节点进行DFS
+        for (int i = 0; i < numNodes; i++) {
+            if (!visited.containsKey(i) && dfs(i, -1)) {  // 传入parent=-1
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean dfs(int node, int parent) {  // 需要parent参数
+        visited.put(node, true);  // 只需要标记访问（相当于灰色）
+
+        for (int nei : adj.getOrDefault(node, new ArrayList<>())) {
+            if (!visited.containsKey(nei)) {
+                if (dfs(nei, node)) {  // 传递当前节点作为parent
+                    return true;
+                }
+            } else if (nei != parent) {  // 关键区别：已访问且不是父节点=有环
+                return true;
+            }
+        }
+        
+        // 不需要标记黑色！
+        return false;
+    }
+}
+```
