@@ -704,6 +704,7 @@ class Solution {
 | 无向图 | 父节点检查 | 只要回到访问过的非父节点就是环      |
 - 有向图判环
 ```java
+// DAG的话，相邻如果访问过的话一定是状态2（无环）
 class DirectedGraphCycleDetection {
     Map<Integer, Integer> gp = new HashMap<>();  // 状态：1=灰色，2=黑色
     Map<Integer, List<Integer>> out = new HashMap<>();
