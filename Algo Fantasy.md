@@ -698,10 +698,44 @@ class Solution {
 ```
 
 ### 11. Graph
-| 图类型 | 环检测方法 | 原因                   |
-| --- | ----- | -------------------- |
-| 有向图 | 三色标记  | 需要区分"在当前路径上"vs"已探索完" |
-| 无向图 | 父节点检查 | 只要回到访问过的非父节点就是环      |
+| 图类型 | 环检测方法 | 原因                   |     |
+| --- | ----- | -------------------- | --- |
+| 有向图 | 三色标记  | 需要区分"在当前路径上"vs"已探索完" |     |
+| 无向图 | 父节点检查 | 只要回到访问过的非父节点就是环      |     |
+
+- 有向图
+```mermaid
+graph LR
+    A((A)) --> B((B))
+    B --> C((C))
+    B --> E((E))
+    C --> D((D))
+    E --> C((C))
+    
+    style A fill:#333,stroke:#333,color:#fff
+    style B fill:#333,stroke:#333,color:#fff
+    style C fill:#333,stroke:#333,color:#fff
+    style D fill:#333,stroke:#333,color:#fff
+    style E fill:#333,stroke:#333,color:#fff
+```
+
+- 无向图
+```mermaid
+flowchart LR
+    A((A)) <--> B((B))
+    B <--> C((C))
+    B <--> E((E))
+    C <--> D((D))
+    E <--> F((F))
+    F <--> C
+    
+    style A fill:#333,stroke:#333,color:#fff
+    style B fill:#333,stroke:#333,color:#fff
+    style C fill:#333,stroke:#333,color:#fff
+    style D fill:#333,stroke:#333,color:#fff
+    style E fill:#333,stroke:#333,color:#fff
+    style F fill:#333,stroke:#333,color:#fff
+```
 
 - 非连通有向图判环
 ```java
