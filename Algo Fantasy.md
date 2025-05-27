@@ -703,7 +703,7 @@ class Solution {
 | 有向图 | 三色标记  | 需要区分"在当前路径上"vs"已探索完" |
 | 无向图 | 父节点检查 | 只要回到访问过的非父节点就是环      |
 
-- 有向图判环
+- 非连通有向图判环
 ```java
 // DAG的话，相邻如果访问过的话一定是状态2（无环）
 class DirectedGraphCycleDetection {
@@ -745,7 +745,83 @@ class DirectedGraphCycleDetection {
 }
 ```
 
-- 无向图判环
+- 非连通有向图src->dst所有路径
+```java
+// 这个代码对有向图和无向图都适用！
+class Solution {
+    List<List<Integer>> result = new ArrayList<>();
+    List<Integer> path = new ArrayList<>();
+    int[] state;
+    
+    public List<List<Integer>> allPaths(List<List<Integer>> graph, int src, int dst) {
+        int n = graph.size();
+        state = new int[n];
+        
+        // 可选的优化：预检查
+        // if (!canReach(graph, src, dst)) return result;
+        
+        dfs(graph, src, dst);
+        return result;
+    }
+    
+    private void dfs(List<List<Integer>> graph, int node, int dst) {
+        if (node == dst) {
+            path.add(dst);
+            result.add(new ArrayList<>(path));
+            path.remove(path.size() - 1);
+            return;
+        }
+        
+        path.add(node);
+        state[node] = 1;
+        
+        for (int nei : graph.get(node)) {
+            if (state[nei] != 1) {
+                dfs(graph, nei, dst);
+            }
+        }
+        
+        path.remove(path.size() - 1);
+        state[node] = 2;
+    }
+}
+```
+
+- 非连通有向图访问每个节点一次
+```java
+class Solution {
+    int[] state;
+    List<List<Integer>> graph;
+    
+    // 只是访问所有节点
+    public void dfsAllNodes(List<List<Integer>> graph) {
+        this.graph = graph;
+        int n = graph.size();
+        state = new int[n];
+        
+        for (int i = 0; i < n; i++) {
+            if (state[i] == 0) {
+                dfs(i);
+            }
+        }
+    }
+    
+    private void dfs(int node) {
+        state[node] = 1;
+        
+        for (int nei : graph.get(node)) {
+            if (state[nei] == 0) {  // 只访问未访问的
+                dfs(nei);
+            }
+            // 忽略 IN_PATH 和 VISITED 的节点
+        }
+        
+        state[node] = 2;
+    }
+}
+```
+
+- 非连通无向图判环
 ```java
 class UndirectedGraphCycleDetection {
     Map<Integer, Boolean> visited = new HashMap<>();  // 只需要记录是否访问
