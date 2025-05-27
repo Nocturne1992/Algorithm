@@ -702,6 +702,7 @@ class Solution {
 | --- | ----- | -------------------- |
 | 有向图 | 三色标记  | 需要区分"在当前路径上"vs"已探索完" |
 | 无向图 | 父节点检查 | 只要回到访问过的非父节点就是环      |
+
 - 有向图判环
 ```java
 // DAG的话，相邻如果访问过的话一定是状态2（无环）
@@ -783,6 +784,158 @@ class UndirectedGraphCycleDetection {
         
         // 不需要标记黑色！
         return false;
+    }
+}
+```
+
+- 非连通无向图src->dst所有路径
+```java
+//找所有路径**：`if (state[nei] != 1)` - 递归状态0和状态2
+public void dfsAllPaths(int node, int dst) {
+    if (node == dst) {
+        // 记录路径
+        return;
+    }
+    
+    state[node] = 1;  // 进入时标记
+    
+    for (int nei : graph[node]) {
+        if (state[nei] != 1) {  // 对状态0和状态2都递归！
+            dfsAllPaths(nei, dst);
+        }
+    }
+    
+    state[node] = 2;  // 这里是关键区别：不是永久的！
+    // 实际上等价于 state[node] = 0，允许被重新访问
+}
+```
+```java
+class Solution {
+    // Union Find 部分
+    class UnionFind {
+        int[] parent;
+        int count;
+        
+        UnionFind(int n) {
+            parent = new int[n];
+            for (int i = 0; i < n; i++) {
+                parent[i] = i;
+            }
+            count = n;
+        }
+        
+        int find(int x) {
+            if (parent[x] != x) {
+                parent[x] = find(parent[x]);  // 路径压缩
+            }
+            return parent[x];
+        }
+        
+        void union(int x, int y) {
+            int px = find(x), py = find(y);
+            if (px == py) return;
+            parent[px] = py;
+        }
+        
+        boolean isConnected(int x, int y) {
+            return find(x) == find(y);
+        }
+    }
+    
+    // 找所有路径部分
+    List<List<Integer>> result = new ArrayList<>();
+    List<Integer> path = new ArrayList<>();
+    int[] state;  // 使用三种状态
+    
+    public List<List<Integer>> allPaths(List<List<Integer>> graph, int src, int dst) {
+        int n = graph.size();
+        
+        // Step 1: 构建 Union Find
+        UnionFind uf = new UnionFind(n);
+        for (int u = 0; u < n; u++) {
+            for (int v : graph.get(u)) {
+                uf.union(u, v);
+            }
+        }
+        
+        // Step 2: 检查连通性
+        if (!uf.isConnected(src, dst)) {
+            return result;  // 不连通，直接返回空结果
+        }
+        
+        // Step 3: 连通则进行 DFS
+        state = new int[n];  // 初始都是 UNVISITED
+        dfs(graph, src, dst);
+        return result;
+    }
+    
+    private void dfs(List<List<Integer>> graph, int node, int dst) {
+        if (node == dst) {
+            path.add(dst);
+            result.add(new ArrayList<>(path));
+            path.remove(path.size() - 1);
+            return;
+        }
+        
+        path.add(node);
+        state[node] = 1;  // 标记为在当前路径中
+        
+        for (int nei : graph.get(node)) {
+            // 关键：对 UNVISITED 和 VISITED 都递归
+            if (state[nei] != 1) {  
+                dfs(graph, nei, dst);
+            }
+        }
+        
+        path.remove(path.size() - 1);
+        state[node] = 2;  // 标记为已访问但可重访
+    }
+}
+```
+
+- 非连通无向图访问每个节点一次
+```java
+public void dfs(int node) {
+    state[node] = 1;  // 进入时标记为"正在访问"
+    
+    for (int nei : graph[node]) {
+        if (state[nei] == 0) {  // 只对未访问的递归
+            dfs(nei);
+        }
+    }
+    
+    state[node] = 2;  // 完成时标记为"访问完成"
+}
+```
+```java
+class Solution {
+    int[] state;  // 0:未访问, 1:在当前路径中, 2:访问完成
+    List<List<Integer>> graph;
+    
+    public void dfsAllNodes(List<List<Integer>> graph) {
+        this.graph = graph;
+        int n = graph.size();
+        state = new int[n];  // 初始都是0
+        
+        // 外层循环处理所有连通分量
+        for (int i = 0; i < n; i++) {
+            if (state[i] == 0) {  // 只从未访问的节点开始
+                dfs(i);
+            }
+        }
+    }
+    
+    private void dfs(int node) {
+        state[node] = 1;  // 进入时标记为"正在访问"
+        
+        for (int nei : graph.get(node)) {
+            if (state[nei] == 0) {  // 只对未访问的递归
+                dfs(nei);
+            }
+            // 如果 state[nei] == 1，说明有环（可选检测）
+        }
+        
+        state[node] = 2;  // 完成时标记为"访问完成"
     }
 }
 ```
