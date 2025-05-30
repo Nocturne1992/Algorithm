@@ -1155,3 +1155,48 @@ class Solution {
     }
 }
 ```
+```java
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    int max;
+    public int longestZigZag(TreeNode root) {
+        dfs(root);
+        return max;
+    }
+
+    public int[] dfs(TreeNode root) {
+        if (root.left == null && root.right == null) {
+            return new int[]{0, 0};
+        }
+
+        int[] rst = new int[]{0, 0};
+
+        if (root.left != null) {
+            int[] left = dfs(root.left);
+            rst[0] += (left[1] + 1);
+        }
+
+        if (root.right != null) {
+            int[] right = dfs(root.right);
+            rst[1] += (right[0] + 1);
+        }
+
+        max = Math.max(max, Math.max(rst[0], rst[1]));
+        return rst;
+    }
+}
+```
