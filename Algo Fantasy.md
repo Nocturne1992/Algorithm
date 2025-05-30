@@ -1050,4 +1050,108 @@ class Solution {
 }
 ```
 
-### 12. 排列组合
+### 12. 二叉树
+- 递归形式2
+```java
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    int max;
+    
+    public int longestUnivaluePath(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+        dfs(root);
+        return max;
+    }
+
+    public int dfs(TreeNode root) {
+        if (root.left == null && root.right == null) {
+            return 0;
+        }
+
+        int leftArrow = 0;
+        if (root.left != null) {
+            int left = dfs(root.left);
+            if (root.val == root.left.val) {
+                leftArrow = left + 1;
+            }          
+        }
+
+        int rightArrow = 0;
+        if (root.right != null) {
+            int right = dfs(root.right);
+            if (root.val == root.right.val) {
+                rightArrow = right + 1;
+            }          
+        }
+
+        max = Math.max(max, leftArrow + rightArrow);
+        return Math.max(leftArrow, rightArrow);
+    }
+}
+```
+```java
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
+    int max;
+    public int maxAncestorDiff(TreeNode root) {
+        dfs(root);
+        return max;
+    }
+
+    public int[] dfs(TreeNode root) {
+        if (root.left == null && root.right == null) {
+            return new int[] {root.val, root.val};
+        }
+
+        int[] rst = new int[] {root.val, root.val};
+
+        if (root.left != null) {
+            int[] left = dfs(root.left);
+            rst[0] = Math.min(rst[0], left[0]);
+            rst[1] = Math.max(rst[1], left[1]);
+            max = Math.max(max, Math.abs(root.val - left[0]));
+            max = Math.max(max, Math.abs(root.val - left[1]));
+        }
+
+        if (root.right != null) {
+            int[] right = dfs(root.right);
+            rst[0] = Math.min(rst[0], right[0]);
+            rst[1] = Math.max(rst[1], right[1]);
+            max = Math.max(max, Math.abs(root.val - right[0]));
+            max = Math.max(max, Math.abs(root.val - right[1]));
+        }
+
+        return rst;
+    }
+}
+```
