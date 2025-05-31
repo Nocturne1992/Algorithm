@@ -1051,7 +1051,7 @@ class Solution {
 ```
 
 ### 12. 二叉树
-- 递归形式2
+- dfs2
 ```java
 /**
  * Definition for a binary tree node.
@@ -1196,6 +1196,58 @@ class Solution {
         }
 
         max = Math.max(max, Math.max(rst[0], rst[1]));
+        return rst;
+    }
+}
+```
+
+- BFS
+```java
+class Solution {
+    public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
+        if (root == null) return new ArrayList<>();
+        List<List<Integer>> rst = new ArrayList<>();
+        Deque<TreeNode> q = new ArrayDeque<>();
+
+        boolean flag = true;
+        q.offerFirst(root);
+
+        while (!q.isEmpty()) {
+            int size = q.size();
+            List<Integer> list = new ArrayList<>();
+
+            if (flag) {
+                for (int i=0; i<size; i++) {
+                    TreeNode cur = q.pollFirst();
+                    list.add(cur.val);
+
+                    if (cur.left != null) {
+                        q.offerLast(cur.left);
+                    }
+
+                    if (cur.right != null) {
+                        q.offerLast(cur.right);
+                    }
+                }
+            } else {
+                for (int i=0; i<size; i++) {
+                    TreeNode cur = q.pollLast();
+                    list.add(cur.val);
+
+                    if (cur.right != null) {
+                        q.offerFirst(cur.right);
+                    }
+
+                    if (cur.left != null) {
+                        q.offerFirst(cur.left);
+                    }
+                }
+            }
+
+            flag = !flag;
+            rst.add(new ArrayList(list));
+        }
+
         return rst;
     }
 }
