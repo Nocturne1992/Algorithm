@@ -1053,21 +1053,6 @@ class Solution {
 ### 12. 二叉树
 - dfs2
 ```java
-/**
- * Definition for a binary tree node.
- * public class TreeNode {
- *     int val;
- *     TreeNode left;
- *     TreeNode right;
- *     TreeNode() {}
- *     TreeNode(int val) { this.val = val; }
- *     TreeNode(int val, TreeNode left, TreeNode right) {
- *         this.val = val;
- *         this.left = left;
- *         this.right = right;
- *     }
- * }
- */
 class Solution {
     int max;
     
@@ -1106,21 +1091,6 @@ class Solution {
 }
 ```
 ```java
-/**
- * Definition for a binary tree node.
- * public class TreeNode {
- *     int val;
- *     TreeNode left;
- *     TreeNode right;
- *     TreeNode() {}
- *     TreeNode(int val) { this.val = val; }
- *     TreeNode(int val, TreeNode left, TreeNode right) {
- *         this.val = val;
- *         this.left = left;
- *         this.right = right;
- *     }
- * }
- */
 class Solution {
     int max;
     public int maxAncestorDiff(TreeNode root) {
@@ -1156,21 +1126,6 @@ class Solution {
 }
 ```
 ```java
-/**
- * Definition for a binary tree node.
- * public class TreeNode {
- *     int val;
- *     TreeNode left;
- *     TreeNode right;
- *     TreeNode() {}
- *     TreeNode(int val) { this.val = val; }
- *     TreeNode(int val, TreeNode left, TreeNode right) {
- *         this.val = val;
- *         this.left = left;
- *         this.right = right;
- *     }
- * }
- */
 class Solution {
     int max;
     public int longestZigZag(TreeNode root) {
@@ -1249,6 +1204,42 @@ class Solution {
         }
 
         return rst;
+    }
+}
+```
+```java
+class Solution {
+    public int widthOfBinaryTree(TreeNode root) {
+        Deque<TreeNode> dq = new ArrayDeque<>();
+        Map<TreeNode, Integer> map = new HashMap<>();
+
+        dq.offerLast(root);
+        map.put(root, 1);
+
+        int max = 0;
+        while (!dq.isEmpty()) {
+            int size = dq.size();
+
+            int left = map.get(dq.peekFirst());
+            int right = map.get(dq.peekLast());
+            max = Math.max(max, right - left + 1);
+
+            for (int i=0; i<size; i++) {
+                TreeNode cur = dq.pollFirst();
+                
+                if (cur.left != null) {
+                    dq.offerLast(cur.left);
+                    map.put(cur.left, 2 * map.get(cur));
+                }
+
+                if (cur.right != null) {
+                    dq.offerLast(cur.right);
+                    map.put(cur.right, 2 * map.get(cur) + 1);
+                }
+            }
+        }
+
+        return max;
     }
 }
 ```
