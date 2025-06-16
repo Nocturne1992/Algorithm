@@ -390,43 +390,39 @@ class Solution {
     }
 }
 ```
-### 6. Cutting Rope / String
+### 6. Recursing
+- 
 ```java
 //截取从idx开始最长为k: for (int i=idx; i<idx + k; i++) -> s.substring(idx, i + 1)
 class Solution {
-    List<String> rst = new ArrayList<>();
-    List<String> list = new ArrayList<>();
+    Map<Integer, Boolean> memo = new HashMap<>();
+    Set<String> set;
 
-    public List<String> restoreIpAddresses(String s) {
-        dfs(s, 0);
-        return rst;
+    public boolean wordBreak(String s, List<String> wordDict) {
+        set = new HashSet<>(wordDict);
+        return dfs(s, 0);
     }
 
-    public void dfs(String s, int idx) {
-        if (idx == s.length() && list.size() == 4) {
-            rst.add(String.join(".", list));
-            return;
+    public boolean dfs(String s, int idx) {
+        if (memo.containsKey(idx)) {
+            return memo.get(idx);
         }
 
-        if (idx == s.length() || list.size() == 4) {
-            return;
+        if (idx == s.length()) {
+            return true;
         }
 
-        if (s.charAt(idx) == '0') {
-            list.add("0");
-            dfs(s, idx + 1);
-            list.remove(list.size() - 1);
-        } else {
-            for (int i=idx; i<Math.min(idx + 3, s.length()); i++) {
-                String str = s.substring(idx, i + 1);
-                int t = Integer.parseInt(str);
-                if (t <= 255) {
-                    list.add(str);
-                    dfs(s, i + 1);
-                    list.remove(list.size() - 1);
-                }
+        for (int i=idx+1; i<=s.length(); i++) {
+            String str = s.substring(idx, i);
+
+            if (set.contains(str) && dfs(s, i)) {
+                memo.put(idx, true);
+                return true;
             }
         }
+
+        memo.put(idx, false);
+        return false;
     }
 }
 ```
@@ -622,11 +618,11 @@ class UF{
     }
 
     public int find(int x) {
-        if (x != pnt[x]) {
-            pnt[x] = find(pnt[x]);
+        if (x == pnt[x]) {
+            return pnt[x];
         }
 
-        return pnt[x];
+        return find(pnt[x]);
     }
 
     public void connect(int p, int q) {
@@ -1242,4 +1238,8 @@ class Solution {
         return max;
     }
 }
+```
+
+```
+8b0abcbc-8104-4ced-bc62-507bd67f002a:224876f7-a41f-4fa6-91a4-87bb6d5de0eb:IPX0dsdDQnstzNni+FPupgt51mjnGD5elsjvqhECROHli4zmGNYf+kFvL/tQQJs9qhwLiW/AZWD2Mkj22LdbMwtzUOw0NxjKDVTOoSJWj6OV6Mmhb91WoBhj2YvT+NKSk4S1GowPV9WPxyvI5hX43wE9ZfXLqbLDhqcHD8Ygtyk/a4gOuWU+JaQ=:dDEV16FS8lc/xZqOeK5B4eZRk73meZ/lyLd+mbz+1ls/gc94cHWrEFWSX/VGONPACchzElzPKwmS894F6Wio5lFuXiq1OcWSr/GDUChvlnDMYdeD+g5uwDZDDfKcveW59KRPykelYG+uOgyC+3zRgtQ0DQa7aMbIPURIB92St+qrWEKQ9wRMiqe78jwdMaAa0gq4Zv6VGSowg86/S1d0Iauve8so8W/m/XcUgm8cxyeO02cUJbUZlt1O7AuxA5K7vpJM2qh6lIjWRaBz1KtlYcQWQDbeK1mftd14F63aaMynoHvk7dsNMcu4xi1J0YKuwscHq++6/bjtY+7kLZ2HZA==
 ```

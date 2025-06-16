@@ -1603,9 +1603,10 @@ var TextEditorService = class {
     if (!editor)
       throw new NoActiveCursorError();
     content = this._elementService.wrapForPastingIntoEditor(content);
-    let cursor = editor.getCursor();
+    const cursor = editor.getCursor();
     editor.replaceRange(content, cursor);
     editor.setCursor(content.length);
+    editor.focus();
   }
 };
 
@@ -2051,5 +2052,3 @@ var MermaidPlugin = class extends import_obsidian6.Plugin {
     this._textEditorService.insertTextAtCursor(this.activeEditor, text);
   }
 };
-
-/* nosourcemap */
