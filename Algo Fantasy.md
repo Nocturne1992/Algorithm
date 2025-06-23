@@ -390,8 +390,7 @@ class Solution {
     }
 }
 ```
-### 6. Recursing
-- 
+### 6. Recursion
 ```java
 //截取从idx开始最长为k: for (int i=idx; i<idx + k; i++) -> s.substring(idx, i + 1)
 class Solution {
@@ -693,7 +692,8 @@ class Solution {
 }
 ```
 
-### 11. Graph
+### 11. Graph DFS
+
 | 图类型 | 环检测方法 | 原因                   |     |
 | --- | ----- | -------------------- | --- |
 | 有向图 | 三色标记  | 需要区分"在当前路径上"vs"已探索完" |     |
@@ -1046,7 +1046,54 @@ class Solution {
 }
 ```
 
-### 12. 二叉树
+### 12. Graph Dijkstra
+```java
+
+```
+
+
+### 13. Graph Bellman
+```java
+class Solution {
+    public int findCheapestPrice(int n, int[][] flights, int src, int dst, int k) {
+        int[] curDist = new int[n];
+        int[] nxtDist = new int[n];
+
+        Arrays.fill(curDist, Integer.MAX_VALUE);
+        Arrays.fill(nxtDist, Integer.MAX_VALUE);
+
+        curDist[src] = 0;
+        nxtDist[src] = 0;
+
+        for (int i=0; i<k+1; i++) {
+            boolean updated = false;
+            System.arraycopy(curDist, 0, nxtDist, 0, n);
+
+            for (int[] flight : flights) {
+                int u = flight[0];
+                int v = flight[1];
+                int w = flight[2];
+
+                if (curDist[u] != Integer.MAX_VALUE && curDist[u] + w < nxtDist[v]) {
+                    nxtDist[v] = curDist[u] + w;
+                    updated = true;
+                }
+            }
+
+            if (!updated) {
+                break;
+            }
+
+            System.arraycopy(nxtDist, 0, curDist, 0, n);
+        }
+
+        return curDist[dst] == Integer.MAX_VALUE? -1 : curDist[dst];
+    }
+}
+```
+
+
+### 14. 二叉树
 - dfs2
 ```java
 class Solution {
@@ -1238,8 +1285,4 @@ class Solution {
         return max;
     }
 }
-```
-
-```
-8b0abcbc-8104-4ced-bc62-507bd67f002a:224876f7-a41f-4fa6-91a4-87bb6d5de0eb:IPX0dsdDQnstzNni+FPupgt51mjnGD5elsjvqhECROHli4zmGNYf+kFvL/tQQJs9qhwLiW/AZWD2Mkj22LdbMwtzUOw0NxjKDVTOoSJWj6OV6Mmhb91WoBhj2YvT+NKSk4S1GowPV9WPxyvI5hX43wE9ZfXLqbLDhqcHD8Ygtyk/a4gOuWU+JaQ=:dDEV16FS8lc/xZqOeK5B4eZRk73meZ/lyLd+mbz+1ls/gc94cHWrEFWSX/VGONPACchzElzPKwmS894F6Wio5lFuXiq1OcWSr/GDUChvlnDMYdeD+g5uwDZDDfKcveW59KRPykelYG+uOgyC+3zRgtQ0DQa7aMbIPURIB92St+qrWEKQ9wRMiqe78jwdMaAa0gq4Zv6VGSowg86/S1d0Iauve8so8W/m/XcUgm8cxyeO02cUJbUZlt1O7AuxA5K7vpJM2qh6lIjWRaBz1KtlYcQWQDbeK1mftd14F63aaMynoHvk7dsNMcu4xi1J0YKuwscHq++6/bjtY+7kLZ2HZA==
 ```
