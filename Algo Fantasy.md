@@ -1048,7 +1048,50 @@ class Solution {
 
 ### 12. Graph Dijkstra
 ```java
+class Solution {
+    public int networkDelayTime(int[][] times, int n, int k) {
+        PriorityQueue<int[]> pq = new PriorityQueue<>((o1, o2) -> Integer.compare(o1[1], o2[1]));
+        Set<Integer> done = new HashSet<>();
+        Map<Integer, List<int[]>> graph = new HashMap<>();
 
+        int[] dist = new int[n + 1];
+        Arrays.fill(dist, Integer.MAX_VALUE);
+        dist[k] = 0;
+
+        for (int[] time : times) {
+            graph.putIfAbsent(time[0], new ArrayList<>());
+            graph.get(time[0]).add(new int[]{time[1], time[2]});
+        }
+
+        int max = 0;
+        int num = 0;
+
+        pq.offer(new int[]{k, dist[k]});
+
+        while (!pq.isEmpty()) {
+            int[] cur = pq.poll();
+            int node = cur[0];
+            int len = cur[1];
+
+            if (done.contains(node)) {
+                continue;
+            }
+
+            num++;
+            done.add(node);
+            max = Math.max(max, len);
+
+            for (int[] nei : graph.getOrDefault(node, new ArrayList<>())) {
+                if (!done.contains(nei[0]) && len + nei[1] < dist[nei[0]]) {
+                    dist[nei[0]] = len + nei[1];
+                    pq.offer(new int[]{nei[0], dist[nei[0]]});
+                }
+            }
+        }
+
+        return num == n? max : -1;
+    }
+}
 ```
 
 
